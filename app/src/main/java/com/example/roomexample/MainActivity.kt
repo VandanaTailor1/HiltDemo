@@ -11,13 +11,17 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.roomexample.R
 import com.example.roomexample.adapter.CryptocurrencyAdapter
 import com.example.roomexample.databinding.ActivityMainBinding
+import com.example.roomexample.model.Item
+import com.example.roomexample.room.database.AppDataBase
 import com.example.roomexample.viewmodel.MainViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     private val viewModel :MainViewModel by viewModels()
-
+    @Inject
+    lateinit var appDatabase: AppDataBase
     private lateinit var binding : ActivityMainBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,6 +36,8 @@ class MainActivity : AppCompatActivity() {
         }
           binding.rvData.layoutManager=LinearLayoutManager(this)
         observeCryptoCurrency()
+
+       
     }
     private fun observeCryptoCurrency() {
           viewModel.cryptoCurrency.observe(this)

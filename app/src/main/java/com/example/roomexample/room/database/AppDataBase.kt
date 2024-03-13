@@ -5,27 +5,13 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.example.roomexample.model.CreptoCurrency
+import com.example.roomexample.model.Item
+import com.example.roomexample.room.dao.ItemDao
 import com.example.roomexample.room.dao.UserDao
 
-@Database(entities = [CreptoCurrency ::class] , version = 1)
-abstract class AppDataBase : RoomDatabase() {
-   abstract fun UserDao() : UserDao
+@Database(entities = [Item ::class] , version = 1)
 
-    object DatabaseBuilder {
-        private var INSTANCE: AppDataBase? = null
-        fun getInstance(context: Context): AppDataBase {
-            if (INSTANCE == null) {
-                synchronized(AppDataBase::class) {
-                    INSTANCE = buildRoomDB(context)
-                }
-            }
-            return INSTANCE!!
-        }
-        private fun buildRoomDB(context: Context) =
-            Room.databaseBuilder(
-                context.applicationContext,
-                AppDataBase::class.java,
-                "Learninggg"
-            ).build()
-    }
+abstract class AppDataBase : RoomDatabase() {
+   abstract fun itemDao() : ItemDao
+
 }
